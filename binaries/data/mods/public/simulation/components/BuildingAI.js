@@ -285,7 +285,7 @@ BuildingAI.prototype.FireArrows = function()
 		    this.arrowsLeft 
 		);
 	}
-	var clonedTargets = this.targetUnits.slice();
+	var clonedTargets = this.targetUnits.sort(function(a, b) { return cmpAttack.CompareEntitiesByPreference(a, b); });
 	for (var i = 0;i < arrowsToFire;i++)
 	{
 		var target = clonedTargets[Math.floor(Math.random() * this.targetUnits.length)];
