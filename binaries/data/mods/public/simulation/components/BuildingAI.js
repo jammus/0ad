@@ -169,17 +169,13 @@ BuildingAI.prototype.OnRangeUpdate = function(msg)
 	else if (msg.tag != this.enemyUnitsQuery)
 		return;
 
-	const restrictedClasses = cmpAttack.GetRestrictedClasses(attackType);
-
 	if (msg.added.length > 0)
 	{
 		for each (var entity in msg.added)
 		{
-			var cmpIdentity = Engine.QueryInterface(entity, IID_Identity);
-			var targetClasses = cmpIdentity.GetClassesList();
-
-			if (!targetClasses.some(function(c){return restrictedClasses.indexOf(c) > -1;}))
+			if (cmpAttack.CanAttack(entity)) {
 				this.targetUnits.push(entity);
+			}
 		}
 	}
 	if (msg.removed.length > 0)
