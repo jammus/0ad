@@ -285,20 +285,26 @@ BuildingAI.prototype.FireArrows = function()
 		    this.arrowsLeft 
 		);
 	}
-	var clonedTargets = this.targetUnits.sort(function(a, b) { return cmpAttack.CompareEntitiesByPreference(a, b); });
+	var targets = new WeightedList();
+	for (var i = 0; i < this.targetUnits.length; i++) {
+		var target = this.targetUnits[i],
+		    weight = (cmpAttack.GetPreference(target) || 0) + 1
+		targets.add(target, weight);
+	}
 	for (var i = 0;i < arrowsToFire;i++)
 	{
-		var target = clonedTargets[Math.floor(Math.random() * this.targetUnits.length)];
-		if (target && this.CheckTargetVisible(target)) 
+		var selectedIndex = targets.randomIndex(),
+		    selectedTarget = targets.itemAt(selectedIndex);
+		if (selectedTarget && this.CheckTargetVisible(selectedTarget))
 		{
-			cmpAttack.PerformAttack(attackType, target);
+			cmpAttack.PerformAttack(attackType, selectedTarget);
 			PlaySound("attack", this.entity);
 		}
 		else 
 		{
-			clonedTargets.splice(clonedTargets.indexOf(target),1);
+			targets.removeAt(selectedIndex);
 			i--; // one extra arrow left to fire
-			if(clonedTargets.length < 1) 
+			if(targets.length() < 1)
 			{
 				this.arrowsLeft += arrowsToFire;
 				// no targets found in this round, save arrows and go to next round
