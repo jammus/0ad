@@ -285,6 +285,10 @@ BuildingAI.prototype.FireArrows = function()
 		    this.arrowsLeft 
 		);
 	}
+	if (arrowsToFire <= 0) {
+		this.currentRound++;
+		return;
+	}
 	var targets = new WeightedList();
 	for (var i = 0; i < this.targetUnits.length; i++) {
 		var target = this.targetUnits[i],
