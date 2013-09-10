@@ -19,15 +19,9 @@ WeightedList.prototype.add = function(item, weight)
 
 WeightedList.prototype.removeAt = function(index)
 {
-	if (index >= this._elements.length)
-		return;
-
-	this._totalWeight -= this._elements[index].weight;
-
-	for (var i = index; i < this._elements.length; i++)
-		this._elements[i] = this._elements[i + 1];
-
-	this._elements.pop(); // discard last (now undefined) element
+	var element = this._elements.splice(index, 1);
+	if (element.length)
+		this._totalWeight -= element[0].weight;
 };
 
 WeightedList.prototype.itemAt = function(index)
