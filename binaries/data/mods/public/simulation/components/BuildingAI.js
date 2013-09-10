@@ -173,9 +173,8 @@ BuildingAI.prototype.OnRangeUpdate = function(msg)
 	{
 		for each (var entity in msg.added)
 		{
-			if (cmpAttack.CanAttack(entity)) {
+			if (cmpAttack.CanAttack(entity))
 				this.targetUnits.push(entity);
-			}
 		}
 	}
 	if (msg.removed.length > 0)
