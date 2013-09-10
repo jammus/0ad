@@ -281,12 +281,14 @@ BuildingAI.prototype.FireArrows = function()
 		    this.arrowsLeft 
 		);
 	}
-	if (arrowsToFire <= 0) {
+	if (arrowsToFire <= 0)
+	{
 		this.currentRound++;
 		return;
 	}
 	var targets = new WeightedList();
-	for (var i = 0; i < this.targetUnits.length; i++) {
+	for (var i = 0; i < this.targetUnits.length; i++)
+	{
 		var target = this.targetUnits[i],
 		    weight = (cmpAttack.GetPreference(target) || 0) + 1
 		targets.add(target, weight);
