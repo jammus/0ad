@@ -288,14 +288,14 @@ BuildingAI.prototype.FireArrows = function()
 	var targets = new WeightedList();
 	for (var i = 0; i < this.targetUnits.length; i++)
 	{
-		var target = this.targetUnits[i],
-		    weight = (cmpAttack.GetPreference(target) || 0) + 1
+		var target = this.targetUnits[i];
+		var weight = (cmpAttack.GetPreference(target) || 0) + 1;
 		targets.push(target, weight);
 	}
 	for (var i = 0;i < arrowsToFire;i++)
 	{
-		var selectedIndex = targets.randomIndex(),
-		    selectedTarget = targets.itemAt(selectedIndex);
+		var selectedIndex = targets.randomIndex();
+		var selectedTarget = targets.itemAt(selectedIndex);
 		if (selectedTarget && this.CheckTargetVisible(selectedTarget))
 		{
 			cmpAttack.PerformAttack(attackType, selectedTarget);
